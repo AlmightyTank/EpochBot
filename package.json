@@ -1,0 +1,22 @@
+{
+  "name": "discord.js-bot-template",
+  "version": "1.0.0",
+  "description": "basic bot template with command handler",
+  "main": "app.js",
+  "dependencies": {
+    "discord.js": "^14.7.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CappeDiem/Discord.js-bot-template.git"
+  },
+  "author": "CappeDiem",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CappeDiem/Discord.js-bot-template/issues"
+  },
+  "homepage": "https://github.com/CappeDiem/Discord.js-bot-template#readme"
+}
