@@ -21,7 +21,7 @@ export default {
     },   
     
     async execute(interaction) {
-        const AMMO_FILE = 'ammo.json';
+        const AMMO_FILE = './data/ammo.json';
         let ammoData = [];
         try {
             if (fs.existsSync(AMMO_FILE)) {

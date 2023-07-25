@@ -104,7 +104,7 @@ export default {
         const list = [
           { name: 'AlMightyTank#6286', number: 3 },
           { name: 'Myself get Lost', number: 3 },
-          { name: 'Word of Wisdom', number: 2 },
+          { name: 'Words of Wisdom', number: 2 },
           { name: 'with Tornados', number: 0 },
           { name: 'the Screams from Below', number: 2 },
           { name: 'the Fight for Life in Tarkov', number: 5 },
@@ -175,8 +175,14 @@ export default {
                     }
                 }
               })
-              .catch(error => {
-                console.error(error);
+              .catch(async error => {
+                if (error && error.type === 'system' && error.code === 'EAI_AGAIN') {
+                  console.log('DNS lookup failed. Retrying in 15 minutes...');
+                  await new Promise(resolve => setTimeout(resolve, 900000)); // wait for 15 minutes
+                  await Main(); // call the function again recursively
+                } else {
+                  console.error(error); // log the error for other types of errors
+                }
               });
         }
 
@@ -191,8 +197,8 @@ export default {
               });
           }, 60000 * (streamers.length + 1)); 
           } catch (error) {
-            if (error.code === "EAI_AGAIN") {
-              console.error("Error: EAI_AGAIN occurred. Retrying in 15 minutes...");
+            if (error && error.type === 'system' && error.code === 'EAI_AGAIN') {
+              console.log('DNS lookup failed. Retrying in 15 minutes...');
               await new Promise(resolve => setTimeout(resolve, 900000)); // wait for 15 minutes
               await Main(); // call the function again recursively
             } else {

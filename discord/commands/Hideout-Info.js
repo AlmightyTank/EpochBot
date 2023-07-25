@@ -21,7 +21,7 @@ export default {
     },   
     
     async execute(interaction) {
-        const HIDEOUT_FILE = 'hideout.json';
+        const HIDEOUT_FILE = './data/hideout.json';
         let hideoutData = [];
         try {
             if (fs.existsSync(HIDEOUT_FILE)) {

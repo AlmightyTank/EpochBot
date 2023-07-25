@@ -1,5 +1,5 @@
 {
-  "name": "epochbot",
+  "name": "epochxp",
   "version": "1.0.0",
   "description": "free to use discord XP & Invites bot + API",
   "main": "index.js",
@@ -9,12 +9,11 @@
     "dev": "nodemon index.js --trace-warnings",
     "pm2": "pm2 start index.js --name 'Discord.js'"
   },
-  "author": "ShiNxz#0001",
+  "author": "AlMightyTank#6286",
   "license": "ISC",
   "type": "module",
   "dependencies": {
     "@discordjs/rest": "^0.3.0",
-    "axios": "^1.3.4",
     "canvacord": "^5.2.3",
     "chalk": "^5.0.1",
     "cookie-parser": "^1.4.6",
@@ -22,8 +21,6 @@
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "graphql-request": "^5.2.0",
-    "moment-timezone": "^0.5.41",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.15"
   }

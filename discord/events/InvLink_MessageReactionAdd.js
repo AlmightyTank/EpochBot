@@ -64,7 +64,8 @@ export default {
                   const inviteeDmChannel = await client.users.cache.get(invite.user_id);
                   const hangoutChannel = await client.channels.cache.get(config.bot.invitelinks.discord.handoutChannel);
     
-                  const inviteLink = await hangoutChannel.createInvite({ maxAge: 86400, maxUses: 1, unique: true });
+                  const inviteLink = await hangoutChannel.createInvite({ maxAge: 86400, maxUses: 2, unique: true });
+                  const inviteCode = inviteLink.code;
       
                   await inviteeDmChannel.send(`Here's your invite link for ${invite.name}: ${inviteLink}`);
     
@@ -78,50 +79,12 @@ export default {
       
                   await votingChannel.send(`Invite request for ${invite.name} from <@${invite.user_id}> has been approved - ${invite.approve_count} A/R ${invite.reject_count}\nRelationship: ${invite.relationship}`);
     
-                  await Query(`DELETE FROM ${config.mysql.tables.invitelinks} WHERE approved = true AND user_id = ? AND message_id = ?`, [invite.user_id, reaction.message.id]);
-    
-                  let state = await Query(`SELECT amount FROM ${config.mysql.tables.invites} WHERE user_id = ? AND guildId = ?`, [invite.user_id, reaction.message.guild.id])
-                  if(state.results.length < 1) { // User Doesn't Exist =>
-                      await Query(`INSERT INTO ${config.mysql.tables.invites} (guildId, user_id) VALUES (?, ?)`, [reaction.message.guild.id, invite.user_id]);
-                      state = await Query(`SELECT amount FROM ${config.mysql.tables.invites} WHERE user_id = ? AND guildId = ?`, [invite.user_id, reaction.message.guild.id])
-                  }
-                  // User Exist =>
-                  state = state.results[0];
-    
-                  let updatedState = 1 + state.amount;
-    
-                  await Query(`UPDATE ${config.mysql.tables.invites} SET amount = ? WHERE user_id = ? AND guildId = ?`, [updatedState, invite.user_id, reaction.message.guild.id])
-    
-                  const Member = await reaction.message.guild.members.cache.find(member => member.id === invite.user_id)
-    
-                  if(config.bot.invites.levels[updatedState]?.role) {
-                    if(!config.bot.invites.stackRoles)
-                        for (const [key, value] of Object.entries(config.bot.invites.levels))
-                            await Member.roles.remove(value.role)
-                        
-                  await Member.roles.add(config.bot.invites.levels[updatedState].role)
-                  const guild = reaction.message.guild;
-                  const role = guild.roles.cache.get(config.bot.invites.levels[updatedState].role);
-    
-                    if(Member.roles.cache.has(config.bot.invites.levels[updatedState]?.role)) {
-                      const Embd = Embed({
-                          title:
-                              phrases.bot.rr.raiseLevel.embedTitle[config.language]
-                                  .replace(`{user}`, Member.user.username),
-                          message:
-                              phrases.bot.rr.raiseLevel.embedMessage[config.language]
-                                  .replace(`{role}`, role),
-                          thumbnail: Member.user.displayAvatarURL()
-                      })
-                      const ranksChannel = client.channels.cache.get(config.ranks.discordChannel)
-                      const ranksMessage = await ranksChannel.send({embeds: [Embd]})
-                      await ranksMessage.react('🔥');
-                    }
-                  }
+                  await Query(`UPDATE ${config.mysql.tables.invitelinks} SET invitecode = ? WHERE approved = true AND user_id = ? AND message_id = ?`, [inviteCode, invite.user_id, reaction.message.id]);
+                  
                 } else if ((invite.reject_count) >= combineCounts) {
     
                   const inviteeDmChannel = await client.users.cache.get(invite.user_id);
-                  await inviteeDmChannel.send(`Sorry, you're InviteLink request has been denied`);
+                  await inviteeDmChannel.send(`We're sorry, but your request for an invite link has been denied.`);
     
                   client.channels.cache.get(config.bot.invitelinks.discord.votingChannel).messages.fetch(reaction.message.id)
                     .then(message => {
@@ -138,10 +101,10 @@ export default {
                 }
               });
             } else {
-              console.log(colors.red(`            [=] We are not monitoring this channel - ${reaction.message.channel.name}`));
+              console.log(colors.red(`            [=] We are not monitoring this channel: ${reaction.message.channel.name} - emoji: ${reaction.emoji.name} from ${user.tag} [InvLink]`));
             }
           } else {
-            console.log(colors.red(`            [=] We are not monitoring this emoji - ${reaction.emoji.name}`));
+            console.log(colors.red(`            [=] We are not monitoring this emoji: ${reaction.emoji.name} from ${user.tag} [InvLink]`));
           }
         } catch (err) {
       console.error(err);

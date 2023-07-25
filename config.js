@@ -64,6 +64,7 @@ const config = {
             enabled: true,
             debug: {
                 enabled: false,
+                logs: false,
             },
             guildID: "972229559233695814",
             reactionEmoji: {
@@ -74,7 +75,11 @@ const config = {
         },
         itemPrices: {
             enabled: true,
-            discordChannel: "1091776415617273907", // Channel id / NULL
+            guildID: "972229559233695814",
+            discordChannel: "1118279162751356989", // Channel id / NULL
+            debug: {
+                enabled: true,
+            },
         },
         invites: {
             enabled: true,

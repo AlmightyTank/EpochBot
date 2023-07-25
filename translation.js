@@ -24,7 +24,7 @@ export default {
                         @bonus = the given bonus with the new level
                         @role = the given role with the new level
                     */
-                    en: "{tradername}'s restocks - <t:{epochnumbers}:R>",
+                    en: "{tradername}'s restocks - <t:{epochnumbers}:R>\n\`\`\`Use ❤️ to recieve Alerts, and \nUse 💔 to stop Alerts\`\`\`",
                     he: "{message}",
                 }
             },
@@ -47,7 +47,28 @@ export default {
                         @bonus = the given bonus with the new level
                         @role = the given role with the new level
                     */
-                    en: "{itemName} price is {itemPrice} <t:{firstten}:R>",
+                    en: "**Going** for **{itemPrice} RUB** - <t:{firstten}:R>",
+                    he: "{message}",
+                }
+            },
+            itemgoingdown: {
+                embedTitle: {
+                    /*
+                        @user = user tag
+                        @level = new level
+                    */
+                    en: "{item} is going to the dirt!",
+                    he: "",
+                },
+                embedMessage: {
+                    /*
+                        @user = user tag
+                        @level = the user new level
+                        @xp = the user new xp amount
+                        @bonus = the given bonus with the new level
+                        @role = the given role with the new level
+                    */
+                    en: "**Going** for **{itemPrice} RUB** - <t:{firstten}:R>",
                     he: "{message}",
                 }
             },
@@ -99,6 +120,34 @@ export default {
                 error: {
                     // If there isn't any bonus for the new level, write that instead
                     en: "An error occurred while fetching data for Goons Tracker.",
+                    he: ""
+                }
+            },
+        },
+        bandage: {
+            message: {
+                embedTitle: {
+                    /*
+                        @user = user tag
+                        @level = new level
+                    */
+                    en: "{username} Event Tracker for {name} Event",
+                    he: "",
+                },
+                embedMessage: {
+                    /*
+                        @user = user tag
+                        @level = the user new level
+                        @xp = the user new xp amount
+                        @bonus = the given bonus with the new level
+                        @role = the given role with the new level
+                    */
+                    en: "{current}",
+                    he: "{current}",
+                },
+                error: {
+                    // If there isn't any bonus for the new level, write that instead
+                    en: "An error occurred while fetching data for Events Tracker.",
                     he: ""
                 }
             },
@@ -545,6 +594,12 @@ export default {
             goonsTracker: {
                 description: {
                     en: "Get information about the Goons",
+                    he: "מציג פקודות שימושיות"
+                },
+            },
+            bandage: {
+                description: {
+                    en: "Get information about the current and past events",
                     he: "מציג פקודות שימושיות"
                 },
             },

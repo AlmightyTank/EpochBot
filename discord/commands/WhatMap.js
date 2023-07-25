@@ -28,7 +28,7 @@ export default {
 
         const args = interaction.options.getString('map');
 
-        const MAPS_FILE = 'maps.json';
+        const MAPS_FILE = './data/maps.json';
         let maps = [];
         try {
             if (fs.existsSync(MAPS_FILE)) {

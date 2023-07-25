@@ -22,7 +22,7 @@ export default {
     },   
     
     async execute(interaction) {
-        const ITEM_FILE = 'items.json';
+        const ITEM_FILE = './data/items.json';
         let itemData = [];
         try {
             if (fs.existsSync(ITEM_FILE)) {

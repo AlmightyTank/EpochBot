@@ -21,7 +21,7 @@ export default {
     },   
     
     async execute(interaction) {
-        const TASK_FILE = 'tasks.json';
+        const TASK_FILE = './data/tasks.json';
         let taskData = [];
         try {
             if (fs.existsSync(TASK_FILE)) {

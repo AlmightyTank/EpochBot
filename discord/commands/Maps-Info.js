@@ -21,7 +21,7 @@ export default {
     },
     
     async execute(interaction) {
-        const MAP_FILE = 'map.json';
+        const MAP_FILE = './data/map.json';
         let mapData = [];
         try {
             if (fs.existsSync(MAP_FILE)) {
@@ -149,7 +149,6 @@ export default {
             }
 
             let bossList = '';
-            let counter = 0;
             let addedBosses = []; // keep track of bosses that have already been added
             enemyHealthPools.forEach(bossName => {
                 const matchingEnemies = enemyHealthPools.filter(enemy => enemy.name === bossName.name);
@@ -265,7 +264,6 @@ export default {
                             }
                             addedBosses.push(bossName.name); // add boss to the list of added bosses
                             //console.log(addedBosses);
-                            counter++;
                         }
                     });
                 }
